@@ -33,5 +33,5 @@ jobs:
           DATABRICKS_HOST: "https://adb-7405619629697022.2.azuredatabricks.net"
           DATABRICKS_AUTH_TYPE: "azure-cli"
         run: |
-          echo "Importing source directory to shared workspace as interactive notebooks..."
-          databricks workspace import-dir ./src /Shared/kazure-pipeline --format SOURCE --overwrite
+          echo "Importing source directory recursively to shared workspace..."
+          databricks workspace import-dir ./src /Shared/kazure-pipeline --overwrite
