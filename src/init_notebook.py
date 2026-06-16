@@ -16,6 +16,6 @@ print(f"Active Environment Context: {env.upper()}")
 # COMMAND ----------
 # Configure platform performance session properties
 spark.conf.set("spark.sql.shuffle.partitions", "auto")
-spark.conf.set("spark.sql.sources.default", "delta")
+  # spark.conf.set("spark.sql.sources.default", "delta")
 
 print("Spark optimization configurations applied successfully.")
