@@ -33,4 +33,4 @@ jobs:
           DATABRICKS_AUTH_TYPE: "azure-cli"
         run: |
           echo "Syncing repository files to Databricks workspace..."
-          databricks workspace sync . /Shared/kazure-pipeline --full
+         databricks workspace sync . /Shared/kazure-pipeline
