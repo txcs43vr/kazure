@@ -1,37 +1,7 @@
-
-name: Deploy Data Platform Infrastructure
-
-on:
-  push:
-    branches:
-      - main
-
-permissions:
-  id-token: write
-  contents: read
-
-jobs:
-  deploy-to-databricks:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository Code
-        uses: actions/checkout@v4
-
-      - name: Log in to Azure via OIDC (app-github-sp)
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      - name: Install Databricks CLI
-        run: |
-          curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
-
-      - name: Copy Code to Databricks Workspace
+- name: Import Notebooks to Databricks Workspace
         env:
           DATABRICKS_HOST: "https://adb-7405619629697022.2.azuredatabricks.net"
           DATABRICKS_AUTH_TYPE: "azure-cli"
         run: |
-          echo "Copying repository source files to user workspace..."
-          databricks fs cp ./src/ Workspace/Users/sqlken_msn.com#ext#@sqlkenmsn.onmicrosoft.com/kazure-pipeline/ -r --overwrite
+          echo "Importing source directory to user workspace..."
+          databricks workspace import-dir ./src /Users/sqlken_msn.com#ext#@sqlkenmsn.onmicrosoft.com/kazure-pipeline --overwrite
