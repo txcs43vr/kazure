@@ -1,4 +1,3 @@
-
 name: Deploy Data Platform Infrastructure
 
 on:
@@ -11,7 +10,7 @@ permissions:
   contents: read
 
 jobs:
-  validate-azure-connection:
+  deploy-to-databricks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository Code
@@ -24,7 +23,14 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Run Azure CLI Connection Verification Test
+      - name: Install Databricks CLI
         run: |
-          echo "Successfully authenticated as app-github-sp!"
-          az account show --output table
+          curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+
+      - name: Sync Code to Databricks Workspace
+        env:
+          DATABRICKS_HOST: "https://adb-7405619629697022.2.azuredatabricks.net"
+          DATABRICKS_AUTH_TYPE: "azure-cli"
+        run: |
+          echo "Syncing repository files to Databricks workspace..."
+          databricks workspace sync . /Shared/kazure-pipeline --full
