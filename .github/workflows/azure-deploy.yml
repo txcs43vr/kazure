@@ -32,5 +32,5 @@ jobs:
           DATABRICKS_HOST: "https://adb-7405619629697022.2.azuredatabricks.net"
           DATABRICKS_AUTH_TYPE: "azure-cli"
         run: |
-          echo "Importing source directory to user workspace..."
-          databricks workspace import-dir ./src /Users/sqlken_msn.com#ext#@sqlkenmsn.onmicrosoft.com/kazure-pipeline --overwrite
+          echo "Importing source directory to interactive user workspace..."
+          databricks workspace import-dir ./src /Workspace/Users/sqlken_msn.com#ext#@sqlkenmsn.onmicrosoft.com/kazure-pipeline --overwrite
